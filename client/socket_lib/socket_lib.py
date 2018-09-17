@@ -43,6 +43,7 @@ class Socket_client_send():
         # message_json = json.dumps(message)
         # message_buf = message_json.encode('utf-8')
         # self.s.send(message_buf)
+        #записываем в БД сообщение на авторизацию
         self._mess_send(Type_message.authenticate(name=self.name, passed=self.passwd, id_mess=1))#id_mess надо брать из БД
         # print(message_buf)
         return 'send connect'
