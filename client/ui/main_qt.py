@@ -4,7 +4,7 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from ui.main_authorization_ui import Ui_MainWindow as ui_auth
 # from .main_chat_ui import Ui_MainWindow as ui_main
 from socket_lib.socket_lib import Socket_client_send as Socket
-
+from db.db_Alchemy import db_Alchimy as db
 
 class CMainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -12,6 +12,7 @@ class CMainWindow(QtWidgets.QMainWindow):
         self.ui_auth = ui_auth()
         self.ui_auth.setupUi(self)
         self.my_socket = Socket()
+        self.my_db = db.init_db()
 
     def on_pushButton_join_pressed(self):
         # Попробовать авторизоватся
