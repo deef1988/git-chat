@@ -39,6 +39,19 @@ class db_Alchimy():
             return "CMessagesGet <mess_send_id={}, id_user_to={}, id_user_from={}, mess={}, mess_read={}>".format(
                 self.mess_send_id, self.id_user_to, self.id_user_from, self.mess, self.mess_read)
 
+    # --------------------------------------------messages_get----------------------------------------------
+    def add_mess_get(session, id_user_to, id_user_from, mess, status_mess):
+        msg = db_Alchimy.CMessagesGet(id_user_from=id_user_from, id_user_to=id_user_to, mess=mess, status_mess=status_mess)
+        session.add(msg)
+        session.commit()
+
+    # --------------------------------------------messages_send----------------------------------------------
+    def add_mess_send(session, id_user_to, id_user_from, mess, status_mess):
+        msg = db_Alchimy.CMessagesSend(id_user_from=id_user_from, id_user_to=id_user_to, mess=mess, status_mess=status_mess)
+        # print(msg)
+        session.add(msg)
+        session.commit()
+
     def init_db():
         if __name__ == '__main__':
             engine = create_engine('sqlite:///messages_alchemy.db', echo=True)
@@ -50,3 +63,7 @@ class db_Alchimy():
         metadata.drop_all(engine)
         metadata.create_all(engine)
         return session
+
+if __name__ == '__main__':
+    sess = db_Alchimy.init_db()
+    db_Alchimy.add_mess_send(sess, id_user_to = 'root', id_user_from = '', mess = 'sdfsdfsdfsdffsdf', status_mess = 's')
