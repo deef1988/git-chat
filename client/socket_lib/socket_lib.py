@@ -43,7 +43,7 @@ class Socket_client_send():
         message = Type_message.authenticate(name=self.name, passed=self.passwd, id_mess=1)
         db.add_mess_send(self.session,  id_user_to = self.name, id_user_from = '', mess = self._message_buf(message), status_mess = 's')
         # self._mess_send(Type_message.authenticate(name=self.name, passed=self.passwd, id_mess=1))#id_mess надо брать из БД
-        return 'send connect'
+        return 'add db mess connect'
 
     # def send_mess(self, *args, **kwargs ):
     #     nameto = kwargs['nameto']
