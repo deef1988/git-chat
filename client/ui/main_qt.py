@@ -1,6 +1,8 @@
 import sys
 sys.path.append("..")
-from PyQt5 import Qt, QtCore, QtGui, QtWidgets
+from PyQt5 import Qt, QtGui, QtWidgets, QtCore
+# from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread, QThreadPool, pyqtSignal)
+from threading import Thread, Lock
 from ui.main_authorization_ui import Ui_MainWindow as ui_auth
 # from .main_chat_ui import Ui_MainWindow as ui_main
 from socket_lib.socket_lib import Socket_client_send as Socket
@@ -13,7 +15,27 @@ class CMainWindow(QtWidgets.QMainWindow):
         self.ui_auth.setupUi(self)
         self.my_socket = Socket()
         self.my_db = db.init_db()
-
+        thrs_start = []
+        thrs_start.append(
+            Thread(target=self.processing_mess_send_db, args=())
+            # запуск потока для обработки сообщений на отправку
+        )
+        for t1 in thrs_start:
+            t1.start()
+    def processing_mess_send_db(self):
+        # 1 заходим в БД и получаем список сообщений на отправку (сотретуем по статусу)
+        # 2 пытаемся отправить сообщение
+        # 3 меняем в БД статус сообщения
+        pass
+    def processing_mess_get_db(self):
+        # 1 пытаемся получить сообщение
+        # 2 добовляем полученое сообщение в БД
+        pass
+    def processing_mess_get(self):
+        # 1 смотрим полученные сообщение в бд  (сортеруем по статусу)
+        # 2 обробатываем сообщение по заданой логике и генерация ответов
+        # 3 обновление статуса сообщения в БД
+        pass
     def on_pushButton_join_pressed(self):
         # Попробовать авторизоватся
         # Если успешно, то открыть окрыть окно чата, а нынешнее закрыть.
